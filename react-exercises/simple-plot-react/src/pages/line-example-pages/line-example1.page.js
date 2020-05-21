@@ -3,32 +3,31 @@ import NiceCharts from '../../components/nice-charts-lib/nice-charts.component';
 
 const LineExample1 = () => {
   const options = {
-    chartTitle: 'State-wise annual max temparature comparision',
+    chartTitle: 'Wildlife Population',
     chartType: 'line',
+    chartWidth: 650,
+    chartHeight: 450,
     axisY: {
-      title: 'Temp in degrees',
-      suffix: '°C',
-      start: -5,
-      end: 50,
-      interval: 5,
+      title: 'Population in crores',
+      start: 0,
+      end: 200,
+      interval: 20,
     },
     axisX: {
       title: 'Years',
-      start: 2010,
-      end: 2014,
+      start: 2017,
+      end: 2022,
       interval: 1,
     },
     data: [
       {
         dataPoints: [
-          { state: 'UP', x: 2010, y: 40 },
-          { state: 'DL', x: 2010, y: 42 },
-          { state: 'UP', x: 2011, y: 45 },
-          { state: 'DL', x: 2011, y: 47 },
-          { state: 'UP', x: 2012, y: 44 },
-          { state: 'DL', x: 2012, y: 47 },
-          { state: 'UP', x: 2013, y: 45 },
-          { state: 'DL', x: 2013, y: 45 },
+          { type: 'bears', x: 2017, y: 5 },
+          { type: 'bears', x: 2018, y: 50 },
+          { type: 'bears', x: 2019, y: 85 },
+          { type: 'bears', x: 2020, y: 114 },
+          { type: 'bears', x: 2021, y: 140 },
+          { type: 'bears', x: 2022, y: 182 },
         ],
       },
     ],
