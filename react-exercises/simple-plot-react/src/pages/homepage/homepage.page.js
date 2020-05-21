@@ -1,11 +1,7 @@
 import React from 'react';
 
 const Homepage = () => {
-  return (
-    <div>
-      <h2>Nice charts library</h2>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Homepage;
