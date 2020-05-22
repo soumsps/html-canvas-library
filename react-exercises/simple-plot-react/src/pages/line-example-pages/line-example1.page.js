@@ -15,19 +15,31 @@ const LineExample1 = () => {
     },
     axisX: {
       title: 'Years',
-      start: 2017,
-      end: 2022,
+      start: 2014,
+      end: 2019,
       interval: 1,
     },
     data: [
       {
-        dataPoints: [
-          { type: 'bears', x: 2017, y: 5 },
-          { type: 'bears', x: 2018, y: 50 },
-          { type: 'bears', x: 2019, y: 85 },
-          { type: 'bears', x: 2020, y: 114 },
-          { type: 'bears', x: 2021, y: 140 },
-          { type: 'bears', x: 2022, y: 182 },
+        label: 'Bears',
+        data: [
+          [2014, 5],
+          [2015, 50],
+          [2016, 85],
+          [2017, 114],
+          [2018, 140],
+          [2019, 182],
+        ],
+      },
+      {
+        label: 'Dolphins',
+        data: [
+          [2014, 140],
+          [2015, 77],
+          [2016, 25],
+          [2017, 11],
+          [2018, 14],
+          [2019, 5],
         ],
       },
     ],
