@@ -94,4 +94,94 @@ const getRandomColor = () => {
   return `#${Math.random().toString(16).substr(2, 6)}`;
 };
 
-export { getAxesScale, drawChartTitle, getRandomColor };
+const drawAxisY = (context, chartOptions, maxValue) => {
+  let scale = chartOptions.axisY.scale;
+  const gap = 30;
+  const width = chartOptions.chartWidth;
+  const height = chartOptions.chartHeight;
+
+  const start = { x: width - (width - gap), y: height - gap };
+  const end = { x: width - (width - gap), y: height - (height - gap) };
+  const yAxisLength = Math.abs(start.y - end.y);
+  if (scale === 'auto') {
+    scale = [];
+    for (let i = 0; i < 5; i += 1) {
+      scale.push(Math.floor(maxValue / 5) * i);
+    }
+  }
+  const yAxisPartsNeeded = scale.length;
+
+  console.log('y axis length: ', yAxisLength);
+  console.log('y axis parts needed', yAxisPartsNeeded);
+
+  context.lineWidth = 1.0;
+  context.strokeStyle = '#fff';
+  context.beginPath();
+  context.moveTo(start.x, start.y);
+  context.lineTo(end.x, end.y);
+  context.stroke();
+
+  for (let i = 0; i < yAxisPartsNeeded; i++) {
+    const stepSize = yAxisLength / yAxisPartsNeeded;
+
+    const nextSegement = i * stepSize;
+    context.lineWidth = 1.0;
+    context.fillStyle = '#fff';
+    context.beginPath();
+    context.moveTo(start.x, start.y - nextSegement);
+    context.lineTo(start.x - 8, start.y - nextSegement);
+    context.stroke();
+
+    let label = scale[i];
+    console.log('label->', label);
+    //yAxisMap.set(label, start.y - nextSegement);
+    const textMeasure = context.measureText(label);
+    context.font = '10px sans-serif';
+    context.strokeStyle = '#fff';
+    context.fillText(
+      label,
+      start.x - 10 - textMeasure.width,
+      start.y - nextSegement + 5
+    );
+  }
+};
+
+const drawAxisX = (context, xAxisParams) => {
+  const { maxBarsInVariant, width, height, chartOptions } = xAxisParams;
+  const gap = 30;
+  const start = { x: width - (width - gap), y: height - gap };
+  const end = { x: width - gap, y: height - gap };
+  const xAxisLength = Math.abs(start.x - end.x);
+  let scale = chartOptions.axisX.scale;
+  const xAxisPartsNeeded = scale.length;
+  context.lineWidth = 1.0;
+  context.strokeStyle = '#fff';
+  context.beginPath();
+  context.moveTo(start.x, start.y);
+  context.lineTo(end.x, end.y);
+  context.stroke();
+
+  for (let i = 0; i < xAxisPartsNeeded; i++) {
+    const stepSize = xAxisLength / xAxisPartsNeeded;
+
+    const nextSegement = (i + 1) * stepSize;
+    context.lineWidth = 1.0;
+    context.strokeStyle = '#fff';
+    context.beginPath();
+    context.moveTo(start.x + nextSegement, start.y);
+    context.lineTo(start.x + nextSegement, start.y + 8);
+    context.stroke();
+
+    let label = scale[i];
+    const textMeasure = context.measureText(label);
+    context.font = '10px sans-serif';
+    context.fillStyle = '#fff';
+    context.fillText(
+      label,
+      start.x + nextSegement - textMeasure.width / 2,
+      start.y + 20
+    );
+  }
+};
+
+export { getAxesScale, drawChartTitle, getRandomColor, drawAxisY, drawAxisX };
