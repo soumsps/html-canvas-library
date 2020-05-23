@@ -10,15 +10,12 @@ const LineExample1 = () => {
     chartBackgroundColor: '#f3f3f3',
     axisY: {
       title: 'Population in crores',
-      start: 0,
-      end: 200,
-      interval: 20,
+      scale: 'auto',
+      segments: 5,
     },
     axisX: {
       title: 'Years',
-      start: 2014,
-      end: 2019,
-      interval: 1,
+      scale: [2014, 2015, 2016, 2017, 2018, 2019],
     },
     data: [
       {
@@ -35,6 +32,7 @@ const LineExample1 = () => {
       },
       {
         label: 'Dolphins',
+        color: 'blue',
         data: [
           [2014, 140],
           [2015, 77],
