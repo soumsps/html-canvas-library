@@ -87,10 +87,17 @@ export default LineExample1;
 
 ### APIs provided by Nice Charts
 
-| Property             | isRequired |  Type  | Default | Help                                                      |
-| -------------------- | :--------: | :----: | :-----: | :-------------------------------------------------------- |
-| chartTitle           |    true    | string |  none   | This will be shown as chart title canvas top.             |
-| chartType            |    true    | string |  none   | Currently supported 'line' & 'bar'                        |
-| chartWidth           |   false    | number |   600   | Number is in pixel.                                       |
-| chartHeight          |   false    | number |   400   | Number is in pixel.                                       |
-| chartBackgroundColor |   false    | string | #f3f3f3 | Enter vaild color, also can give color like 'grey', 'red' |
+| Property             | isRequired |      Type      | Default | Help                                                                                               |
+| -------------------- | :--------: | :------------: | :-----: | :------------------------------------------------------------------------------------------------- |
+| chartTitle           |    true    |     string     |  none   | This will be shown as chart title canvas top.                                                      |
+| chartType            |    true    |     string     |  none   | Currently supported 'line' & 'bar'                                                                 |
+| chartWidth           |   false    |     number     |   600   | Number is in pixel.                                                                                |
+| chartHeight          |   false    |     number     |   400   | Number is in pixel.                                                                                |
+| chartBackgroundColor |   false    |     string     | #f3f3f3 | Enter vaild color, also can give color like 'grey', 'red'                                          |
+|                      |            |                |         |                                                                                                    |
+| <i>axisX & axisY</i> |    true    |     object     |  none   | Contains title, scale, and segments property                                                       |
+| title                |    ---     |      ---       |   ---   | Not implemented yet                                                                                |
+| scale                |    true    | string / array |  none   | Can have 'auto' for automatic axis scaling <br>or user can provide predefined axis scale as array. |
+| segments             |   false    |     number     |    5    | Desired number of axis segments.                                                                   |
+|                      |            |                |         |                                                                                                    |
+| <i>data</i>          |    true    |     array      |  none   | Array of object (contains label, color, data)                                                      |
