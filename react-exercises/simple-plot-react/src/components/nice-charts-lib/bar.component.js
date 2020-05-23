@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import { drawAxisY, drawAxisX } from './helper';
+import { drawAxisY, drawAxisX, drawChartTitle } from './helper';
+import { DEFAULT_CANVAS_SPACING } from './constants';
 
 const drawSingleBar = (ctx, startX, startY, width, height, color) => {
   ctx.save();
@@ -32,17 +33,18 @@ const drawBarChart = (chartOptions, canvasRef) => {
   const canvas = canvasRef.current;
   const canvasOptions = {};
   canvasOptions.context = canvas.getContext('2d');
-  canvasOptions.padding = 30;
+  canvasOptions.padding = DEFAULT_CANVAS_SPACING;
   const chartData = chartOptions.data;
   const width = chartOptions.chartWidth;
   const height = chartOptions.chartHeight;
-  const canvasHeight = height - canvasOptions.padding * 2;
-  const canvasWidth = width - canvasOptions.padding * 2;
+  const canvasHeight = height - DEFAULT_CANVAS_SPACING * 2;
+  const canvasWidth = width - DEFAULT_CANVAS_SPACING * 2;
   const { maxBarsInVariant, maxHeight } = getMaxDataOfBar(chartOptions);
 
   const barVariant = chartData.length + 1;
   const barSize = canvasWidth / (maxBarsInVariant * barVariant);
   const colors = ['#52dedd', '#e0e438', '#f7885d', '#f1558e', '#f1558e'];
+  drawChartTitle(canvasOptions.context, chartOptions);
   drawAxisX(canvasOptions.context, {
     maxBarsInVariant,
     width,
