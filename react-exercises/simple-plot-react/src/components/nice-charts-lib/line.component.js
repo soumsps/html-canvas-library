@@ -1,19 +1,21 @@
 import React, { useEffect, useRef } from 'react';
-import { DEFAULT_CHART_BACKGROUND_COLOR } from './constants';
+import {
+  DEFAULT_CHART_BACKGROUND_COLOR,
+  DEFAULT_CHART_WIDTH,
+  DEFAULT_CHART_HEIGHT,
+} from './constants';
 import { getAxesScale, drawChartTitle, getRandomColor } from './helper';
 
 const LineChart = ({ chartOptions }) => {
   const canvasRef = useRef(null);
-  const width = chartOptions.chartWidth;
-  const height = chartOptions.chartHeight;
 
   const xAxisMap = new Map();
   const yAxisMap = new Map();
 
   const drawAxisX = (context, chartOptions, scale) => {
     const gap = 60;
-    const width = chartOptions.chartWidth;
-    const height = chartOptions.chartHeight;
+    const width = chartOptions.chartWidth || DEFAULT_CHART_WIDTH;
+    const height = chartOptions.chartHeight || DEFAULT_CHART_HEIGHT;
 
     const start = { x: width - (width - gap), y: height - gap };
     const end = { x: width - gap, y: height - gap };
@@ -54,8 +56,8 @@ const LineChart = ({ chartOptions }) => {
 
   const drawAxisY = (context, chartOptions, scale) => {
     const gap = 60;
-    const width = chartOptions.chartWidth;
-    const height = chartOptions.chartHeight;
+    const width = chartOptions.chartWidth || DEFAULT_CHART_WIDTH;
+    const height = chartOptions.chartHeight || DEFAULT_CHART_HEIGHT;
 
     const start = { x: width - (width - gap), y: height - gap };
     const end = { x: width - (width - gap), y: height - (height - gap) };
@@ -175,17 +177,11 @@ const LineChart = ({ chartOptions }) => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
-
     const scale = getAxesScale(chartOptions);
     drawChartTitle(context, chartOptions);
     drawAxisX(context, chartOptions, scale.scaleX);
     drawAxisY(context, chartOptions, scale.scaleY);
-
     drawChart(context);
-    console.log(getAxesScale(chartOptions));
-
-    console.log('xAxisMap: ', xAxisMap);
-    console.log('yAxisMap: ', yAxisMap);
   });
 
   return (
@@ -193,8 +189,8 @@ const LineChart = ({ chartOptions }) => {
       <canvas
         className="canvas-line"
         ref={canvasRef}
-        width={width}
-        height={height}
+        width={chartOptions.chartWidth || DEFAULT_CHART_WIDTH}
+        height={chartOptions.chartHeight || DEFAULT_CHART_HEIGHT}
         style={{
           backgroundColor:
             chartOptions.chartBackgroundColor || DEFAULT_CHART_BACKGROUND_COLOR,

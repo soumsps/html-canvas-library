@@ -1,11 +1,13 @@
-import { DEFAULT_AXES_SEGMENTS } from './constants';
+import { DEFAULT_AXES_SEGMENTS, DEFAULT_CHART_WIDTH } from './constants';
 
 const drawChartTitle = (context, chartOptions) => {
-  const textMeasure = context.measureText(chartOptions.chartTitle);
+  const chartTitle = chartOptions.chartTitle || '';
+  const chartWidth = chartOptions.chartWidth || DEFAULT_CHART_WIDTH;
+  const textMeasure = context.measureText(chartTitle);
   context.font = '18px sans-serif';
   context.fillText(
-    chartOptions.chartTitle,
-    chartOptions.chartWidth - (chartOptions.chartWidth / 2 + textMeasure.width),
+    chartTitle,
+    chartWidth - (chartWidth / 2 + textMeasure.width),
     30
   );
 };
