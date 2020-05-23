@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { DEFAULT_CHART_BACKGROUND_COLOR } from './constants';
+import { getAxesScale, drawChartTitle, getRandomColor } from './helper';
 
 const LineChart = ({ chartOptions }) => {
   const canvasRef = useRef(null);
@@ -9,25 +10,15 @@ const LineChart = ({ chartOptions }) => {
   const xAxisMap = new Map();
   const yAxisMap = new Map();
 
-  const drawChartTitle = (context) => {
-    const textMeasure = context.measureText(chartOptions.chartTitle);
-    context.font = '18px sans-serif';
-    context.fillText(
-      chartOptions.chartTitle,
-      width - (width / 2 + textMeasure.width),
-      30
-    );
-  };
-
-  const drawAxisX = (context) => {
+  const drawAxisX = (context, chartOptions, scale) => {
     const gap = 60;
+    const width = chartOptions.chartWidth;
+    const height = chartOptions.chartHeight;
+
     const start = { x: width - (width - gap), y: height - gap };
     const end = { x: width - gap, y: height - gap };
     const xAxisLength = Math.abs(start.x - (end.x - 40));
-    const xAxisPartsNeeded =
-      Math.abs(chartOptions.axisX.start - chartOptions.axisX.end) /
-        chartOptions.axisX.interval +
-      1;
+    const xAxisPartsNeeded = scale.length;
 
     console.log('x axis length: ', xAxisLength);
     console.log('x axis parts needed', xAxisPartsNeeded);
@@ -48,7 +39,7 @@ const LineChart = ({ chartOptions }) => {
       context.lineTo(start.x + nextSegement, start.y + 8);
       context.stroke();
 
-      let label = chartOptions.axisX.start + chartOptions.axisX.interval * i;
+      let label = scale[i];
       xAxisMap.set(label, start.x + nextSegement);
       const textMeasure = context.measureText(label);
       context.font = '10px sans-serif';
@@ -61,15 +52,15 @@ const LineChart = ({ chartOptions }) => {
     }
   };
 
-  const drawAxisY = (context) => {
+  const drawAxisY = (context, chartOptions, scale) => {
     const gap = 60;
+    const width = chartOptions.chartWidth;
+    const height = chartOptions.chartHeight;
+
     const start = { x: width - (width - gap), y: height - gap };
     const end = { x: width - (width - gap), y: height - (height - gap) };
     const yAxisLength = Math.abs(start.y - end.y);
-    const yAxisPartsNeeded =
-      Math.abs(chartOptions.axisY.start - chartOptions.axisY.end) /
-        chartOptions.axisY.interval +
-      1;
+    const yAxisPartsNeeded = scale.length;
 
     console.log('y axis length: ', yAxisLength);
     console.log('y axis parts needed', yAxisPartsNeeded);
@@ -90,7 +81,7 @@ const LineChart = ({ chartOptions }) => {
       context.lineTo(start.x - 8, start.y - nextSegement);
       context.stroke();
 
-      let label = chartOptions.axisY.start + chartOptions.axisY.interval * i;
+      let label = scale[i];
       yAxisMap.set(label, start.y - nextSegement);
       const textMeasure = context.measureText(label);
       context.font = '10px sans-serif';
@@ -101,10 +92,6 @@ const LineChart = ({ chartOptions }) => {
       );
     }
   };
-
-  function getRandomColor() {
-    return `#${Math.random().toString(16).substr(2, 6)}`;
-  }
 
   const calculateAbsoluteCoordinates = (relativeX, relativeY) => {
     let absoluteX = null;
@@ -156,7 +143,7 @@ const LineChart = ({ chartOptions }) => {
   const drawChart = (context) => {
     const markDot = (color, x, y) => {
       context.fillStyle = color;
-      context.fillRect(x - 4, y - 4, 8, 8);
+      context.fillRect(x - 3, y - 3, 6, 6);
       // context.fill();
     };
 
@@ -164,7 +151,7 @@ const LineChart = ({ chartOptions }) => {
       let color = group.color || getRandomColor();
       //let label = group.label;
 
-      context.lineWidth = 2.0;
+      context.lineWidth = 1.0;
       context.beginPath();
       context.strokeStyle = color;
       for (let i = 0; i < group.data.length; i++) {
@@ -189,11 +176,13 @@ const LineChart = ({ chartOptions }) => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
-    drawChartTitle(context);
-    drawAxisX(context);
-    drawAxisY(context);
+    const scale = getAxesScale(chartOptions);
+    drawChartTitle(context, chartOptions);
+    drawAxisX(context, chartOptions, scale.scaleX);
+    drawAxisY(context, chartOptions, scale.scaleY);
 
     drawChart(context);
+    console.log(getAxesScale(chartOptions));
 
     console.log('xAxisMap: ', xAxisMap);
     console.log('yAxisMap: ', yAxisMap);
