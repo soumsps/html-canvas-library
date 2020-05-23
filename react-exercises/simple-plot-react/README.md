@@ -23,7 +23,7 @@ You have to create a plotting library that can render a few types of graphs.
 
 # Solution
 
-## Documentation
+## Documentation 📚
 
 ### Usage
 
@@ -93,7 +93,7 @@ export default LineExample1;
 
 | Property                    | isRequired |      Type      |   Default    | Help                                                                                               |
 | --------------------------- | :--------: | :------------: | :----------: | :------------------------------------------------------------------------------------------------- |
-| chartTitle                  |    true    |     string     |     none     | This will be shown as chart title canvas top.                                                      |
+| chartTitle                  |   false    |     string     |      ''      | This will be shown as chart title canvas top.                                                      |
 | chartType                   |    true    |     string     |     none     | Currently supported 'line' & 'bar'                                                                 |
 | chartWidth                  |   false    |     number     |     600      | Number is in pixel.                                                                                |
 | chartHeight                 |   false    |     number     |     400      | Number is in pixel.                                                                                |
