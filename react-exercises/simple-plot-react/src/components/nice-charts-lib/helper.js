@@ -1,11 +1,18 @@
-import { DEFAULT_AXES_SEGMENTS } from './constants';
+import {
+  DEFAULT_AXES_SEGMENTS,
+  DEFAULT_CHART_WIDTH,
+  DEFAULT_CANVAS_SPACING,
+} from './constants';
 
 const drawChartTitle = (context, chartOptions) => {
-  const textMeasure = context.measureText(chartOptions.chartTitle);
+  const chartTitle = chartOptions.chartTitle || '';
+  const chartWidth = chartOptions.chartWidth || DEFAULT_CHART_WIDTH;
+  const textMeasure = context.measureText(chartTitle);
   context.font = '18px sans-serif';
+  context.fillStyle = 'grey';
   context.fillText(
-    chartOptions.chartTitle,
-    chartOptions.chartWidth - (chartOptions.chartWidth / 2 + textMeasure.width),
+    chartTitle,
+    chartWidth - (chartWidth / 2 + textMeasure.width),
     30
   );
 };
@@ -41,7 +48,6 @@ const getAxesScale = (chartOptions) => {
         minY = Math.min(minY, dataPoint[1]);
         maxY = Math.max(maxY, dataPoint[1]);
       }
-      // console.log(dataPoint);
     }
   }
 
@@ -52,8 +58,6 @@ const getAxesScale = (chartOptions) => {
     let interval = Math.abs(maxX - minX) / segments;
     let intervalCeilToNearTen = Math.ceil(interval / 10) * 10;
 
-    // console.log('X interval calc: ', intervalCeilToNearTen);
-
     let scale = [];
     for (let i = 0; i <= segments; i++) {
       let temp = minX + intervalCeilToNearTen * i;
@@ -61,7 +65,6 @@ const getAxesScale = (chartOptions) => {
     }
 
     scaleX = scale;
-    // console.log('x scale:', scale);
   }
 
   if (scaleY === 'auto') {
@@ -71,8 +74,6 @@ const getAxesScale = (chartOptions) => {
     let interval = Math.abs(maxY - minY) / segments;
     let intervalCeilToNearTen = Math.ceil(interval / 10) * 10;
 
-    //  console.log('Y interval calc: ', intervalCeilToNearTen);
-
     let scale = [];
     for (let i = 0; i <= segments; i++) {
       let temp = minY + intervalCeilToNearTen * i;
@@ -80,11 +81,7 @@ const getAxesScale = (chartOptions) => {
     }
 
     scaleY = scale;
-    // console.log('y scale:', scale);
   }
-
-  // console.log(minX, minY);
-  // console.log(maxX, maxY);
   return { scaleX, scaleY };
 };
 
@@ -94,7 +91,8 @@ const getRandomColor = () => {
 
 const drawAxisY = (context, chartOptions, maxValue) => {
   let scale = chartOptions.axisY.scale;
-  const gap = 30;
+  let segments = chartOptions.axisX.segments || DEFAULT_AXES_SEGMENTS;
+  const gap = DEFAULT_CANVAS_SPACING;
   const width = chartOptions.chartWidth;
   const height = chartOptions.chartHeight;
 
@@ -103,14 +101,11 @@ const drawAxisY = (context, chartOptions, maxValue) => {
   const yAxisLength = Math.abs(start.y - end.y);
   if (scale === 'auto') {
     scale = [];
-    for (let i = 0; i < 5; i += 1) {
+    for (let i = 0; i < segments; i += 1) {
       scale.push(Math.floor(maxValue / 5) * i);
     }
   }
   const yAxisPartsNeeded = scale.length;
-
-  console.log('y axis length: ', yAxisLength);
-  console.log('y axis parts needed', yAxisPartsNeeded);
 
   context.lineWidth = 1.0;
   context.strokeStyle = '#fff';
@@ -131,7 +126,6 @@ const drawAxisY = (context, chartOptions, maxValue) => {
     context.stroke();
 
     let label = scale[i];
-    console.log('label->', label);
     //yAxisMap.set(label, start.y - nextSegement);
     const textMeasure = context.measureText(label);
     context.font = '10px sans-serif';
@@ -145,7 +139,8 @@ const drawAxisY = (context, chartOptions, maxValue) => {
 };
 
 const drawAxisX = (context, xAxisParams) => {
-  const { maxBarsInVariant, width, height, chartOptions } = xAxisParams;
+  //const { maxBarsInVariant, width, height, chartOptions } = xAxisParams;
+  const { width, height, chartOptions } = xAxisParams;
   const gap = 30;
   const start = { x: width - (width - gap), y: height - gap };
   const end = { x: width - gap, y: height - gap };
