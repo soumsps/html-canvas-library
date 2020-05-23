@@ -22,8 +22,6 @@ const LineChart = ({ chartOptions }) => {
     const xAxisLength = Math.abs(start.x - (end.x - 40));
     const xAxisPartsNeeded = scale.length;
 
-    console.log('x axis length: ', xAxisLength);
-    console.log('x axis parts needed', xAxisPartsNeeded);
     context.lineWidth = 1.0;
     context.beginPath();
     context.moveTo(start.x, start.y);
@@ -63,9 +61,6 @@ const LineChart = ({ chartOptions }) => {
     const end = { x: width - (width - gap), y: height - (height - gap) };
     const yAxisLength = Math.abs(start.y - end.y);
     const yAxisPartsNeeded = scale.length;
-
-    console.log('y axis length: ', yAxisLength);
-    console.log('y axis parts needed', yAxisPartsNeeded);
 
     context.lineWidth = 1.0;
     context.beginPath();

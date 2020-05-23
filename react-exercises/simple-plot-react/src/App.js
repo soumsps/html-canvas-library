@@ -8,7 +8,6 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <Homepage />
       <h2>Nice charts library</h2>
       <nav>
         <Link to="/">Home</Link>
