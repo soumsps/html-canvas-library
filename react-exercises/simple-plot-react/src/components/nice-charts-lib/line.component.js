@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { DEFAULT_CHART_BACKGROUND_COLOR } from './constants';
 
 const LineChart = ({ chartOptions }) => {
   const canvasRef = useRef(null);
@@ -210,6 +211,10 @@ const LineChart = ({ chartOptions }) => {
         ref={canvasRef}
         width={width}
         height={height}
+        style={{
+          backgroundColor:
+            chartOptions.chartBackgroundColor || DEFAULT_CHART_BACKGROUND_COLOR,
+        }}
       />
     </div>
   );

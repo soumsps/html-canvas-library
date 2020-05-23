@@ -7,6 +7,7 @@ const LineExample1 = () => {
     chartType: 'line',
     chartWidth: 650,
     chartHeight: 450,
+    chartBackgroundColor: '#f3f3f3',
     axisY: {
       title: 'Population in crores',
       start: 0,
@@ -38,7 +39,7 @@ const LineExample1 = () => {
           [2015, 77],
           [2016, 25],
           [2017, 11],
-          [2018, 14],
+          [2018, 34],
           [2019, 5],
         ],
       },
