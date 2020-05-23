@@ -1,44 +1,55 @@
 import React from 'react';
 import NiceCharts from '../../components/nice-charts-lib/nice-charts.component';
 
-const BarExample1 = () => {
+const LineExample1 = () => {
   const options = {
-    chartTitle: 'State-wise annual max temparature comparision',
+    chartTitle: 'Wildlife Population',
     chartType: 'bar',
+    chartWidth: 650,
+    chartHeight: 450,
+    chartBackgroundColor: '#f3f3f3',
     axisY: {
-      title: 'Temp in degrees',
-      suffix: '°C',
-      start: -5,
-      end: 50,
-      interval: 5,
+      title: 'Population in crores',
+      scale: 'auto',
+      segments: 5,
     },
     axisX: {
       title: 'Years',
-      start: 2010,
-      end: 2014,
-      interval: 1,
+      scale: [2014, 2015, 2016, 2017, 2018, 2019],
     },
     data: [
       {
-        dataPoints: [
-          { state: 'UP', x: 2010, y: 40 },
-          { state: 'DL', x: 2010, y: 42 },
-          { state: 'UP', x: 2011, y: 45 },
-          { state: 'DL', x: 2011, y: 47 },
-          { state: 'UP', x: 2012, y: 44 },
-          { state: 'DL', x: 2012, y: 47 },
-          { state: 'UP', x: 2013, y: 45 },
-          { state: 'DL', x: 2013, y: 45 },
+        label: 'Bears',
+        color: 'red',
+        data: [
+          [2014, 5],
+          [2015, 50],
+          [2016, 85],
+          [2017, 114],
+          [2018, 140],
+          [2019, 182],
+        ],
+      },
+      {
+        label: 'Dolphins',
+        color: 'blue',
+        data: [
+          [2014, 140],
+          [2015, 77],
+          [2016, 25],
+          [2017, 11],
+          [2018, 34],
+          [2019, 5],
         ],
       },
     ],
   };
   return (
     <div>
-      <h3>Bar chart (example 1)</h3>
+      <h3>Line chart (example 1)</h3>
       <NiceCharts chartOptions={options} />
     </div>
   );
 };
 
-export default BarExample1;
+export default LineExample1;
