@@ -23,6 +23,7 @@ const LineExample1 = () => {
     data: [
       {
         label: 'Bears',
+        color: 'red',
         data: [
           [2014, 5],
           [2015, 50],

@@ -161,7 +161,7 @@ const LineChart = ({ chartOptions }) => {
     };
 
     for (const group of chartOptions.data) {
-      let color = getRandomColor();
+      let color = group.color || getRandomColor();
       //let label = group.label;
 
       context.lineWidth = 2.0;
