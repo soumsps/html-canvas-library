@@ -4,7 +4,7 @@ const Homepage = () => {
   return (
     <div>
       <a
-        href="https://github.com/pesto-students/deep-dive-soumsps/tree/simple-plot-react/react-exercises/simple-plot-react"
+        href="https://github.com/soumsps/html-canvas-library"
         target="_blank"
         rel="noopener noreferrer"
       >
